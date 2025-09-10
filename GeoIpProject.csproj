@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable </ImplicitUsings>
+		<UserSecretsId>8ee5c6e0-df8b-43b3-90c4-3c1ddc24276c</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="code\**" />
+		<Content Remove="code\**" />
+		<EmbeddedResource Remove="code\**" />
+		<None Remove="code\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="code\GeoIpProject.Api.Controllers\GeoIpProject.Api.Controllers.csproj" />
+		<ProjectReference Include="code\GeoIpProject.Api.Services\GeoIpProject.Api.Services.csproj" />
+		<ProjectReference Include="code\GeoIpProject.Clients\GeoIpProject.Clients.csproj" />
+		<ProjectReference Include="code\GeoIpProject.Services\GeoIpProject.Services.csproj" />
+	</ItemGroup>
+
+</Project>

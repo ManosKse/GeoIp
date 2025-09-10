@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Use the ASP.NET Core shared framework -->
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\GeoIpProject.Api.Services.Interfaces\GeoIpProject.Api.Services.Interfaces.csproj" />
+		<ProjectReference Include="..\GeoIpProject.Services.Intefaces\GeoIpProject.Services.Intefaces.csproj" />
+	</ItemGroup>
+
+</Project>

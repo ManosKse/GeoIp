@@ -7,7 +7,8 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=IpGeoDb;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
     ports:
-      - "5000:80"
+      - "5000:5000"
+      - "5001:5001"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest

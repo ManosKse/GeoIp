@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace GeoIpProject.Api.Controllers.Tests
 {
-    internal class BatchControllerTests
+    public class BatchControllerTests
     {
-        private IGeoIpProjectService _geoIpService = null!;
-        private LinkGenerator _linkGenerator = null!;
-        private ILogger<BatchesController> _logger = null!;
-        private BatchesController _controller = null!;
+        private IGeoIpProjectService _geoIpService;
+        private LinkGenerator _linkGenerator;
+        private ILogger<BatchesController> _logger;
+        private BatchesController _controller;
 
         [SetUp]
         public void Setup()

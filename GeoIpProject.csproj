@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>disable</Nullable>
-		<ImplicitUsings>disable </ImplicitUsings>
+		<ImplicitUsings>disable</ImplicitUsings>
 		<UserSecretsId>8ee5c6e0-df8b-43b3-90c4-3c1ddc24276c</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>.</DockerfileContext>
@@ -11,9 +11,13 @@
 
 	<ItemGroup>
 		<Compile Remove="code\**" />
+		<Compile Remove="tests\**" />
 		<Content Remove="code\**" />
+		<Content Remove="tests\**" />
 		<EmbeddedResource Remove="code\**" />
+		<EmbeddedResource Remove="tests\**" />
 		<None Remove="code\**" />
+		<None Remove="tests\**" />
 	</ItemGroup>
 
 	<ItemGroup>

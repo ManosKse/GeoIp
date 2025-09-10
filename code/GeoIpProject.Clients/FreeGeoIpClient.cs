@@ -1,9 +1,7 @@
-﻿using Azure;
-using GeoIpProject.Clients.Interfaces;
+﻿using GeoIpProject.Clients.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;

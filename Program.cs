@@ -1,15 +1,13 @@
 using GeoIpProject.Api.Services;
-using GeoIpProject.Services;
 using GeoIpProject.Clients;
+using GeoIpProject.Services;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
 
 namespace GeoIpProject
 {

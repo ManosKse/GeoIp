@@ -43,7 +43,7 @@ namespace GeoIpProject.Services
 
             _logger.LogInformation("Batch {BatchId} created with {Count} items", batch.Id, batch.TotalCount);
 
-            // Start local fire-and-forget processing for quick feedback (hosted worker will also pick up)
+            // Start local fire-and-forget processing 
             _ = Task.Run(() => ProcessBatchAsync(batch.Id, cancellationToken));
 
             return new BatchModel { Id = batch.Id, TotalCount = batch.TotalCount };
@@ -57,11 +57,11 @@ namespace GeoIpProject.Services
             DateTime eta = default;
             if (batch.StartedAt.HasValue && batch.TotalCount > 0)
             {
-                var done = Math.Max(1, batch.CompletedCount + batch.FailedCount);
+                var done = batch.CompletedCount + batch.FailedCount;
                 var elapsed = DateTime.UtcNow - batch.StartedAt.Value;
                 var avgTicks = elapsed.Ticks / done;
-                var remaining = Math.Max(0, batch.TotalCount - done);
-                eta = DateTime.UtcNow + TimeSpan.FromTicks(avgTicks * remaining);
+                var remaining = batch.TotalCount - done;
+                eta = done != 0 ? DateTime.UtcNow + TimeSpan.FromTicks(avgTicks * remaining) : DateTime.UtcNow;
             }
 
             return new GeoIpProject.Services.Interfaces.BatchStatus

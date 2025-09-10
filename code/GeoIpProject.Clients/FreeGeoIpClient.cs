@@ -1,7 +1,9 @@
-﻿using GeoIpProject.Clients.Interfaces;
+﻿using Azure;
+using GeoIpProject.Clients.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -29,13 +31,22 @@ namespace GeoIpProject.Clients
 
         public async Task<GeoIpResponse> LookupAsync(string ip, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("FreeGeoIpClient.LookupAsync start");
+            try
+            {
+                _logger.LogInformation("FreeGeoIpClient.LookupAsync start");
 
-            var resp = await _httpClient.GetFromJsonAsync<GeoIpResponse>($"{_config.ServicePath}?apikey=sgiPfh4j3aXFR3l2CnjWqdKQzxpqGn9pX5b3CUsz&ip={ip}", cancellationToken).ConfigureAwait(false)
-                ?? throw new HttpRequestException("Empty response");
+                var resp = await _httpClient.GetAsync($"{_config.ServicePath}?apikey={_config.ApiKey}&ip={ip}", cancellationToken);
+                resp.EnsureSuccessStatusCode();
 
-            _logger.LogInformation("FreeGeoIpClient.LookupAsync finish");
-            return resp;
+                _logger.LogInformation("FreeGeoIpClient.LookupAsync finish");
+                return await resp.Content.ReadFromJsonAsync<GeoIpResponse>()
+                    ?? throw new Exception("Failed to deserialize response");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
     }
 }

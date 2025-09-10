@@ -28,5 +28,10 @@
         /// HttpClient handler lifetime in minutes
         /// </summary>
         public int HandlerLifetimeMinutes { get; set; }
+
+        /// <summary>
+        /// The Api Key needed to communicate with GeoIp Api
+        /// </summary>
+        public string ApiKey { get; set; }
     }
 }

@@ -52,13 +52,13 @@ namespace GeoIpProject.Features.Controllers
             var batch = await _geoIpProjectService.CreateIpBatchesAsync(req, cancellationToken);
 
             var statusUrl = _links.GetUriByAction(HttpContext, action: nameof(GetBatchesProcessingStatus), controller: "Batches", values: new { id = batch.BatchId })
-                            ?? $"/api/batches/{batch.BatchId}";
+                            ?? $"{ControllerNames.Batches}/{batch.BatchId}";
 
             batch.StatusUrl = statusUrl;
 
             _logger.LogInformation("Created batch {BatchId}", batch.BatchId);
 
-            return Ok(batch);
+            return Accepted(batch);
         }
 
         /// <summary>

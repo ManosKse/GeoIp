@@ -23,6 +23,9 @@ namespace GeoIpProject.Services
         {
             _logger.LogInformation("FreeGeoIpService.LookupAsync start");
 
+            if (!System.Net.IPAddress.TryParse(ip, out _))
+                throw new InvalidCastException("Invalid IP address");
+
             var resp = await _freeGeoIpClient.LookupAsync(ip, cancellationToken);
 
             _logger.LogInformation("FreeGeoIpService.LookupAsync finish");

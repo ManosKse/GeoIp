@@ -1,5 +1,6 @@
 using GeoIpProject.Api.Services;
 using GeoIpProject.Clients;
+using GeoIpProject.Clients.Interfaces.Exceptions;
 using GeoIpProject.Services;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
@@ -67,6 +68,12 @@ namespace GeoIpProject
         public static void ConfigureProblemDetails(Hellang.Middleware.ProblemDetails.ProblemDetailsOptions options)
         {
             options.Map<Exception>(exception => new Microsoft.AspNetCore.Mvc.ProblemDetails
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Detail = exception.Message
+            });
+
+            options.Map<FreeGeoIpClientException>(exception => new Microsoft.AspNetCore.Mvc.ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Detail = exception.Message

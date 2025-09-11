@@ -1,4 +1,5 @@
 ﻿using GeoIpProject.Clients.Interfaces;
+using GeoIpProject.Clients.Interfaces.Exceptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -37,13 +38,13 @@ namespace GeoIpProject.Clients
                 resp.EnsureSuccessStatusCode();
 
                 _logger.LogInformation("FreeGeoIpClient.LookupAsync finish");
-                return await resp.Content.ReadFromJsonAsync<GeoIpResponse>()
+                return await resp.Content.ReadFromJsonAsync<GeoIpResponse>(cancellationToken)
                     ?? throw new Exception("Failed to deserialize response");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw;
+                throw new FreeGeoIpClientException($"Unexpected error looking up IP {ip}.");
             }
         }
     }

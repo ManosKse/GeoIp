@@ -13,7 +13,7 @@ namespace GeoIpProject.Api.Services
                 CountryCode = input.CountryCode,
                 CountryName = input.CountryName,
                 Latitude = input.Latitude,
-                Longtitude = input.Longitude,
+                Longitude = input.Longitude,
                 TimeZone = input.TimeZone
             };
         }

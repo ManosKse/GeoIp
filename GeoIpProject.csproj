@@ -36,7 +36,6 @@
 		<ProjectReference Include="code\GeoIpProject.Api.Services\GeoIpProject.Api.Services.csproj" />
 		<ProjectReference Include="code\GeoIpProject.Clients\GeoIpProject.Clients.csproj" />
 		<ProjectReference Include="code\GeoIpProject.Services\GeoIpProject.Services.csproj" />
-		<ProjectReference Include="tests\Unit\GeoIpProject.Api.Controllers.Tests\GeoIpProject.Api.Controllers.Tests.csproj" />
 	</ItemGroup>
 
 </Project>

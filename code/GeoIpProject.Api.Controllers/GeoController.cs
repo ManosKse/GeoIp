@@ -47,10 +47,10 @@ namespace GeoIpProject.Features.Controllers
         {
             _logger.LogInformation("Lookup request for {Ip} start", ip);
 
-            var r = await _geoIpService.GetIpInfoAsync(ip, cancellationToken);
+            var resp = await _geoIpService.GetIpInfoAsync(ip, cancellationToken);
 
             _logger.LogInformation("Lookup request finish");
-            return Ok(r);
+            return Ok(resp);
         }
     }
 }

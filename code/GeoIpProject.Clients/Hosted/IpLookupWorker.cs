@@ -24,11 +24,11 @@ namespace GeoIpProject.Clients
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("IpLookupWorker started, polling every {Interval}s", _options.PollIntervalSeconds);
 
-            while (!stoppingToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
@@ -40,19 +40,19 @@ namespace GeoIpProject.Clients
                                           .Include(i => i.Batch)
                                           .Where(i => i.Status == ItemStatus.Pending)
                                           .Take(_options.MaxBatchItems)
-                                          .ToListAsync(stoppingToken);
+                                          .ToListAsync(cancellationToken);
 
                     foreach (var item in pending)
                     {
-                        if (stoppingToken.IsCancellationRequested) break;
+                        if (cancellationToken.IsCancellationRequested) break;
 
                         try
                         {
                             item.Status = ItemStatus.Running;
                             item.StartedAt = DateTime.UtcNow;
-                            await db.SaveChangesAsync(stoppingToken);
+                            await db.SaveChangesAsync(cancellationToken);
 
-                            var res = await geo.LookupAsync(item.Ip, stoppingToken);
+                            var res = await geo.LookupAsync(item.Ip, cancellationToken);
 
                             item.CountryCode = res.Data.Location.Country.CountryCode;
                             item.CountryName = res.Data.Location.Country.CountryName;
@@ -82,7 +82,7 @@ namespace GeoIpProject.Clients
                             item.Batch.StartedAt ??= DateTime.UtcNow;
                         }
 
-                        await db.SaveChangesAsync(stoppingToken);
+                        await db.SaveChangesAsync(cancellationToken);
                     }
                 }
                 catch (Exception ex)
@@ -90,7 +90,7 @@ namespace GeoIpProject.Clients
                     _logger.LogError(ex, "Error during background processing");
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(_options.PollIntervalSeconds), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(_options.PollIntervalSeconds), cancellationToken);
             }
         }
     }
